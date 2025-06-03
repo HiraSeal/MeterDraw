@@ -89,5 +89,5 @@ ax.add_patch(circle)
 ax.text(0, 0.25, "Speed", ha='center', va='center', fontsize=20, fontweight='bold',fontname='Times New Roman', fontstyle='italic' )
 ax.text(0, -0.2, "km/h", ha='center', va='center', fontsize=14)
 
-plt.savefig("spdeter.png", dpi=300)
+plt.savefig("spdmeter.png", dpi=300)
 plt.show()
