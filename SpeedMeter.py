@@ -1,16 +1,10 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-
 import numpy as np
-color1 = 'black'
-color2 = 'dimgray'
-color4 = 'lightgray'
-# ---- サブルーチン ----
-def draw_label(ax, angle_rad, value, radius=1.05*0.7, fontsize=14):
-    """指定した角度と値でラベルを描く"""
-    x = radius * np.cos(angle_rad) 
-    y = radius * np.sin(angle_rad) 
-    ax.text(x, y, str(value), ha='center', va='center', fontsize=fontsize)
+
+color1 = 'black' # 太線の色
+color2 = 'dimgray' # 細線の色
+color4 = 'lightgray' # 外周円の色
 
 # ---- パラメータ設定 ----
 num_black = 12
@@ -27,8 +21,19 @@ black_r_end = 1.0
 grey_r_start = 0.88
 grey_r_end = 1.0
 
+# 追加黒線（例：最初の角度 + 15°）
+extra_angle_deg = angle_start_deg + 15
+
 # 黒線に付ける数値（例：20刻みで 20~240）
 black_labels = list(range(20, 261, 20)) 
+
+# 角度に応じたラベルの記載関数
+def draw_label(ax, angle_rad, value, radius=1.05*0.7, fontsize=14):
+    """指定した角度と値でラベルを描く"""
+    x = radius * np.cos(angle_rad) 
+    y = radius * np.sin(angle_rad) 
+    ax.text(x, y, str(value), ha='center', va='center', fontsize=fontsize)
+
 
 # ---- 描画開始 ----
 fig, ax = plt.subplots(figsize=(6,6))
@@ -64,13 +69,12 @@ for i, angle in enumerate(angles):
         ax.plot([x0, x1], [y0, y1], color=color, linewidth=width)
 
 # 追加黒線（例：最初の角度 + 15°）
-extra_angle_deg = angle_start_deg + 15
 extra_angle_rad = np.radians(extra_angle_deg)
 x0 = black_r_start * np.cos(extra_angle_rad)
 y0 = black_r_start * np.sin(extra_angle_rad)
 x1 = black_r_end * np.cos(extra_angle_rad)
 y1 = black_r_end * np.sin(extra_angle_rad)
-ax.plot([x0, x1], [y0, y1], color='black', linewidth=black_width)
+ax.plot([x0, x1], [y0, y1], color=color1, linewidth=black_width)
 draw_label(ax, extra_angle_rad, 0)
 
 ax.plot(0, 0, 'ko', markersize=6)
